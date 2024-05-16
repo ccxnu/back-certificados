@@ -13,6 +13,7 @@ export const createApp = ({ userModel }) => {
   app.use(express.json());
   app.disable("x-powered-by");
   app.use(express.urlencoded({ extended: false }));
+  app.use(express.static("public"));
 
   app.use("/api/user", createUserRouter({ userModel }));
 

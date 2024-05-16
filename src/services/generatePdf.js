@@ -13,7 +13,9 @@ export const generatePdf = async ({ nombre, apellido, saldo, qrcode }) => {
     const html = template({ nombre, apellido, saldo, qrcode });
 
     // Create a new browser instance
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
     const page = await browser.newPage();
     await page.setContent(html);
     // Generate PDF
@@ -22,7 +24,7 @@ export const generatePdf = async ({ nombre, apellido, saldo, qrcode }) => {
     await browser.close();
     // Convert PDF buffer to base64
     const pdfBase64 = pdfBuffer.toString("base64");
-    console.log("PDF generado correctamente", pdfBase64);
+
     return pdfBase64;
   } catch (error) {
     const err = createThrowError("Algo ha ocurrido al generar el pdf.", 500);
