@@ -12,6 +12,8 @@ export const generatePdf = async ({ nombre, apellido, saldo, qrcode }) => {
     // Fill the template with certificate data
     const html = template({ nombre, apellido, saldo, qrcode });
 
+    console.log("paso 3", html);
+
     // Create a new browser instance
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
