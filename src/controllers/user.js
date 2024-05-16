@@ -59,6 +59,7 @@ export class UserController {
 
     try {
       const pdfBase64 = await generatePdf({ nombre, apellido, saldo, qrcode });
+      console.log(pdfBase64);
       res.status(200).send(pdfBase64);
     } catch (error) {
       return res
