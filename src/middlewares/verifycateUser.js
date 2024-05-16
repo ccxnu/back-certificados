@@ -1,0 +1,1 @@
+export const verifycateUser = (id) => {};
