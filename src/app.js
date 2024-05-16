@@ -12,7 +12,7 @@ export const createApp = ({ userModel }) => {
   app.use(cors());
   app.use(express.json());
   app.disable("x-powered-by");
-  app.use(express.urlencoded({ extended: true }));
+  app.use(express.urlencoded({ extended: false }));
 
   app.use("/api/user", createUserRouter({ userModel }));
 

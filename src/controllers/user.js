@@ -29,9 +29,6 @@ export class UserController {
 
     try {
       const user = await this.userModel.getUserById({ id });
-      if (!user) {
-        return res.status(404).json({ message: "El usuario no existe." });
-      }
       res.status(200).json(user);
     } catch (error) {
       res.status(500).json({
