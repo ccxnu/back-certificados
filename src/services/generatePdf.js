@@ -5,6 +5,11 @@ import { createThrowError } from "../middlewares/errorHandler.js";
 
 export const generatePdf = async ({ nombre, apellido, saldo, qrcode }) => {
   try {
+    // Create a new browser instance
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+    const page = await browser.newPage();
     // Read the contents of the HTML template file
     const data = await fs.readFile("./public/template.html", "utf-8");
     // Compile the template with Handlebars
@@ -12,11 +17,6 @@ export const generatePdf = async ({ nombre, apellido, saldo, qrcode }) => {
     // Fill the template with certificate data
     const html = template({ nombre, apellido, saldo, qrcode });
 
-    // Create a new browser instance
-    const browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
-    const page = await browser.newPage();
     await page.setContent(html);
     // Generate PDF
     const pdfBuffer = await page.pdf();
