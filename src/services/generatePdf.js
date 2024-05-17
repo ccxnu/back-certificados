@@ -7,7 +7,12 @@ export const generatePdf = async ({ nombre, apellido, saldo, qrcode }) => {
   try {
     // Create a new browser instance
     const browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--no-zygote",
+        "--single-process",
+      ],
     });
     const page = await browser.newPage();
     // Read the contents of the HTML template file
