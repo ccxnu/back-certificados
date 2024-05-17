@@ -2,6 +2,7 @@ import handlebars from "handlebars";
 import puppeteer from "puppeteer";
 import fs from "fs/promises";
 import { createThrowError } from "../middlewares/errorHandler.js";
+import "dotenv/config";
 
 export const generatePdf = async ({ nombre, apellido, saldo, qrcode }) => {
   try {
@@ -13,6 +14,10 @@ export const generatePdf = async ({ nombre, apellido, saldo, qrcode }) => {
         "--no-zygote",
         "--single-process",
       ],
+      executablePath:
+        process.env.NODE_ENV === "production"
+          ? process.env.PUPPETEER_EXECUTABLE_PATH
+          : puppeteer.executablePath(),
     });
     const page = await browser.newPage();
     // Read the contents of the HTML template file
