@@ -8,12 +8,7 @@ export const generatePdf = async ({ nombre, apellido, saldo, qrcode }) => {
   try {
     // Create a new browser instance
     const browser = await puppeteer.launch({
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--no-zygote",
-        "--single-process",
-      ],
+      args: ["--no-sandbox", "--disable-setuid-sandbox", "--no-zygote"],
       executablePath:
         process.env.NODE_ENV === "production"
           ? process.env.PUPPETEER_EXECUTABLE_PATH
