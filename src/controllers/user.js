@@ -43,7 +43,12 @@ export class UserController {
 
     try {
       const qrCodeData = await QRCode.toDataURL(qrData);
-      res.status(200).send(qrCodeData);
+      if (!qrCodeData) {
+        return res
+          .status(500)
+          .json({ message: "Algo ha ocurrido al generar el qr." });
+      }
+      res.status(200).send({ data: qrCodeData });
     } catch (error) {
       return res
         .status(500)
@@ -56,7 +61,7 @@ export class UserController {
 
     try {
       const pdfBase64 = await generatePdf({ nombre, apellido, saldo, qrcode });
-      res.status(200).send(pdfBase64);
+      res.status(200).send({ data: pdfBase64 });
     } catch (error) {
       return res
         .status(500)
