@@ -7,6 +7,7 @@ export const createUserRouter = ({ userModel }) => {
   const userController = new UserController({ userModel });
 
   userRouter.post("/pdf", userController.getPdf);
+  userRouter.post("/validation", userController.validateUser);
 
   userRouter.get("/", userController.getAll);
   userRouter.get("/:id", userController.getById);

@@ -20,6 +20,21 @@ export class UserController {
     }
   };
 
+  validateUser = async (req, res) => {
+    const { id } = req.body;
+    try {
+      const user = await this.userModel.getUserById({ id });
+      if (!user) {
+        return res.status(404).json({ message: "Usuario no encontrado." });
+      }
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json({
+        message: "Algo ha ocurrido al buscar el usuario.",
+      });
+    }
+  };
+
   getById = async (req, res) => {
     const { id } = req.params;
 
@@ -29,6 +44,9 @@ export class UserController {
 
     try {
       const user = await this.userModel.getUserById({ id });
+      if (!user) {
+        return res.status(404).json({ message: "Usuario no encontrado." });
+      }
       res.status(200).json(user);
     } catch (error) {
       res.status(500).json({
